@@ -1,0 +1,17 @@
+{% load static %}
+{% load plotly_dash %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Hubs Dashboard</title>
+    <link rel="stylesheet" href="{% static 'outer.css' %}">
+    <link rel="icon" href="assets/embl.png" type="image/x-icon">
+</head>
+<body>
+    <div id="dash-container">
+        {% plotly_app_bootstrap name="ena_datahub_dashboard" %}
+    </div>
+</body>
+
+</html>

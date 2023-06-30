@@ -1,0 +1,21 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#dash-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+iframe {
+    width: 100%;
+    height: auto;
+    border: none;
+    aspect-ratio: 2.15;
+}
