@@ -98,7 +98,8 @@ class geoM:
             if ':' in str(ContryInput[i]):
                 ContryInput[i] = ContryInput[i].split(':')[0]
         ContryInput_U = list(set(ContryInput)- {'-1'})
-        del ContryInput_U[ContryInput_U.index('missing')]
+        if 'missing' in ContryInput_U:
+            del ContryInput_U[ContryInput_U.index('missing')]
         df['size'] = [ContryInput.count(i) for i in ContryInput_U ]
         code_3 = pd.read_csv('assets/Officially_assigned_code_elements.csv',sep= '\t')
         for i in ContryInput_U :

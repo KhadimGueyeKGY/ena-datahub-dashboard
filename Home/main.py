@@ -87,12 +87,25 @@ def statistics ():
 
 
 ### plot 
-def map () : 
-    data_map = geoM.df_map(list(data_read_run['country']))
-    fig1 = geoM.Choropleth_map(data_map)
-    #fig1.update_layout(height=2000)
-    fig = html.Div([dcc.Graph(figure=fig1)])
+country = list(set(list(data_read_run['country'])) - {'-1'})
+country.sort()
+def map():
+    fig = html.Div([
+        html.Div(
+            dcc.Dropdown(
+                id='dropdown-country',
+                options=[{'label': c, 'value': c} for c in country],
+                multi=True,
+                placeholder='Sélectionnez un pays',
+                style={'width': '100%'}
+            ),
+            style={'width': '100%'}
+        ),
+        dcc.Graph(id='dropdown-fig')
+    ])
     return fig
+
+
 
 ##### instrument platform
 
@@ -159,3 +172,18 @@ app.layout = html.Div(
         ], 
         style= {'width' : '100%'}
     )
+
+
+@app.callback(
+    Output('dropdown-fig', 'figure'),
+    Input('dropdown-country', 'value')
+)
+def update_output(selected_countries):
+    if (selected_countries is None) or (len(selected_countries) == 0):
+        data_map = geoM.df_map(country)
+        fig1 = geoM.Choropleth_map(data_map)
+        return fig1
+    else:
+        data_map = geoM.df_map(selected_countries)
+        fig1 = geoM.Choropleth_map(data_map)
+        return fig1
