@@ -97,7 +97,10 @@ class geoM:
         for i in range(len(ContryInput)):
             if ':' in str(ContryInput[i]):
                 ContryInput[i] = ContryInput[i].split(':')[0]
-        ContryInput_U = list(set(ContryInput)- {'-1'})
+        if '-1' in ContryInput:
+            ContryInput_U = list(set(ContryInput)- {'-1'})
+        else:
+            ContryInput_U = list(set(ContryInput))
         if 'missing' in ContryInput_U:
             del ContryInput_U[ContryInput_U.index('missing')]
         df['size'] = [ContryInput.count(i) for i in ContryInput_U ]
@@ -118,17 +121,21 @@ class geoM:
         with open('assets/geojson-counties-fips.json') as response:
             counties = json.load(response)
         px.set_mapbox_access_token('pk.eyJ1Ijoia2hhZGltZ3VleWVrZ3kiLCJhIjoiY2xiM3BsMnBpMGhhZTNvb2Exc3B5eHl6OCJ9.lA_AUaGIJxDHLjaokBbxDg')
+        size_values = list(data['size'])
+        min_value = min(size_values)-1 if size_values else 0
+        max_value = max(size_values)  if size_values else 1
+
         fig = px.choropleth_mapbox(data, geojson=counties, locations='code', color='size',
-                           color_continuous_scale="blues",
-                           range_color=(min(list(data['size']))-1, max(list(data['size']))-1),
-                           mapbox_style="carto-positron",
-                           zoom=1, center = {"lat": 15.372460769473202, "lon": -16.48902546251731},   # 15.372460769473202, -16.48902546251731
-                           opacity=0.5,
-                           labels={'pays':'unemployment rate'},
-                           #hover_template='%{hovertext}<br>Size: %{customdata[0]}',
-                           hover_data={'size': True},
-                           hover_name='code',
-                          )
+                                color_continuous_scale="blues",
+                                range_color=(min_value, max_value),
+                                mapbox_style="carto-positron",
+                                zoom=1, center={"lat": 15.372460769473202, "lon": -16.48902546251731},
+                                opacity=0.5,
+                                labels={'pays': 'unemployment rate'},
+                                hover_data={'size': True},
+                                hover_name='code'
+                                )
+
         fig.update_traces(marker_color=default_color, selector={'location': ''})
 
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0},height=650,)

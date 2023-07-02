@@ -87,16 +87,17 @@ def statistics ():
 
 
 ### plot 
-country = list(set(list(data_read_run['country'])) - {'-1'})
-country.sort()
+country = list(data_read_run['country'])
+country_u= list(set(list(data_read_run['country'])) - {'-1'})
+country_u.sort()
 def map():
     fig = html.Div([
         html.Div(
             dcc.Dropdown(
                 id='dropdown-country',
-                options=[{'label': c, 'value': c} for c in country],
+                options=[{'label': c, 'value': c} for c in country_u],
                 multi=True,
-                placeholder='Sélectionnez un pays',
+                placeholder='Select countries ...',
                 style={'width': '100%'}
             ),
             style={'width': '100%'}
@@ -184,6 +185,10 @@ def update_output(selected_countries):
         fig1 = geoM.Choropleth_map(data_map)
         return fig1
     else:
-        data_map = geoM.df_map(selected_countries)
+        selected_countrie = []
+        for i in country:
+            if i in selected_countries:
+                selected_countrie.append(i)
+        data_map = geoM.df_map(selected_countrie)
         fig1 = geoM.Choropleth_map(data_map)
         return fig1
