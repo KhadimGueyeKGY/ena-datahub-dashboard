@@ -2,10 +2,18 @@
 
 ## Usage: 
 ```
+git clone https://github.com/KhadimGueyeKGY/ena-datahub-dashboard.git
+cd ena-datahub-dashboard
+pip install --no-cache-dir -r requirements.txt
+```
+You can either modify the ```authentication.tsv``` file by adding your username and password, or the running application will prompt you for your username and password.
+
+```
+python manage.py runserver
 
 ```
 
-## Docker commands 
+## Docker commands  (ongoing)
 
 ```
 docker build -t khadimgueyekgy/ena-datahub-dashboard .
