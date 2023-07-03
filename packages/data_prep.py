@@ -59,10 +59,13 @@ class GetData :
     def authentication():
         username = ''
         password = ''
-        authentication = pd.read_csv('authentication.txt',sep = '\t')
-        password = str(authentication['password'][0])
-        username = str(authentication['username'][0])
-        
+        try : 
+            authentication = pd.read_csv('authentication.tsv',sep = '\t')
+            password = str(authentication['password'][0])
+            username = str(authentication['username'][0])
+        except :
+            username = ''
+            password = ''
         while (username == '') and (password == ''):
             username = input('Username => ')
             password = getpass.getpass(prompt='Password => ')
