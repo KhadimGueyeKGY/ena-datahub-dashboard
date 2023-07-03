@@ -17,7 +17,7 @@ python manage.py runserver
 
 ```
 docker build -t khadimgueyekgy/ena-datahub-dashboard .
-docker run --rm -it -p 8000:8000 --name ena-cohort-dashboard khadimgueyekgy/ena-datahub-dashboard
+docker run --rm -it -p 8000:8000 --name ena-datahub-dashboard khadimgueyekgy/ena-datahub-dashboard
 
 ```
 
