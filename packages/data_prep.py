@@ -70,10 +70,21 @@ class GetData :
             username = input('Username => ')
             password = getpass.getpass(prompt='Password => ')
         return username , password
+    
+    def authentication_1():
+        username = ''
+        password = ''
+        while (username == '') and (password == ''):
+            username = input('Username => ')
+            password = getpass.getpass(prompt='Password => ')
+        return username , password
 
     def main (username , password):
         data_analysis = []
         data_read_run = []
+        print(password)
+        if username=='' or password =='nan' or username=='nan' or password =='' :
+            username , password = GetData.authentication_1()
         for i in GetData.ena_searches:
             print('> Running data request: {} ... [{}]'.format(i, datetime.datetime.now()))
             url = GetData.get_url(GetData.ena_searches[i])
