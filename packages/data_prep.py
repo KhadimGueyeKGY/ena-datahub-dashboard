@@ -82,7 +82,6 @@ class GetData :
     def main (username , password):
         data_analysis = []
         data_read_run = []
-        print(password)
         if username=='' or password =='nan' or username=='nan' or password =='' :
             username , password = GetData.authentication_1()
         for i in GetData.ena_searches:
